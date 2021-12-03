@@ -10,11 +10,13 @@ path=$(pwd)"/path"
 
 for dir in $(ls $path)
 do
-    dirName=${dir%%_path*}
     gitCommand=`cat $path/$dir`
-    if [[ -d $(pwd)/$dirName ]]; then
+    if [[ -d $(pwd)/$dir ]]; then
         echo $dirName"目录已存在"
         continue
     fi
-    git clone $gitCommand $dirName
+    git clone $gitCommand  "./resource/"$dir
+    if [[ $dir == "LeetCodePractice" ]]; then
+        rm -rf "./resource/"$dir"/.git"
+    fi
 done
